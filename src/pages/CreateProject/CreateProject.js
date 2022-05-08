@@ -5,10 +5,12 @@ import { useAuth } from "../../context/AuthContext/AuthContext";
 
 const CreateProject = () => {
   const [authState] = useAuth();
+  console.log(authState);
   const navigate = useNavigate();
+
   useEffect(() => {
     !authState._id && navigate("/login");
-  }, [authState._id]);
+  }, []);
 
   const [createProject, setCreateProject] = useState({
     name: "",
@@ -22,13 +24,29 @@ const CreateProject = () => {
     currentMembers: [],
     applications: []
   });
-  const formHandler = (e) => {
-    e.preventDefault();
+
+  const addToTotalProjects = () => {
     const projects = JSON.parse(localStorage.getItem("projects"));
     const newProjects = projects.concat(createProject);
     localStorage.setItem("projects", JSON.stringify(newProjects));
   };
-  console.log(JSON.parse(localStorage.getItem("projects")));
+
+  const addToUserProjects = () => {
+    const users = JSON.parse(localStorage.getItem("users"));
+    const updatedUserDetails = users.map(
+      (user) =>
+        user._id === authState._id && {
+          ...user,
+          projectsCreated: user.projectsCreated.concat(createProject)
+        }
+    );
+    console.log(updatedUserDetails);
+  };
+  const formHandler = (e) => {
+    e.preventDefault();
+    addToTotalProjects();
+    addToUserProjects();
+  };
   return (
     <>
       <form onSubmit={formHandler}>
