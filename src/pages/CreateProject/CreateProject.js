@@ -1,16 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuid } from "uuid";
+import { useAuth } from "../../context/AuthContext/AuthContext";
 
 const CreateProject = () => {
+  const [authState] = useAuth();
+  const navigate = useNavigate();
+  useEffect(() => {
+    !authState._id && navigate("/login");
+  }, [authState._id]);
+
   const [createProject, setCreateProject] = useState({
-    name: null,
-    description: null,
+    name: "",
+    description: "",
     _id: uuid(),
-    stack: null,
-    difficulty: null,
-    time: null,
+    stack: "",
+    difficulty: "",
+    time: "",
     availableRoles: [],
-    totalCapacity: null,
+    totalCapacity: "",
     currentMembers: [],
     applications: []
   });
