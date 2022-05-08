@@ -17,16 +17,6 @@ export default function App() {
         password: "test123"
       })
     );
-    localStorage.setItem(
-      "projects",
-      JSON.stringify([
-        {
-          _id: uuid(),
-          name: "google",
-          description: "search engine"
-        }
-      ])
-    );
   }, []);
   return (
     <div className="App">

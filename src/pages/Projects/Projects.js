@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-
-// import {  } from "react";
 const Projects = () => {
   const [projects, setProjects] = useState([]);
   useEffect(() => {
-    setProjects(JSON.parse(localStorage.getItem("projects")));
+    const existing = JSON.parse(localStorage.getItem("projects"));
+    existing
+      ? setProjects(existing)
+      : localStorage.setItem("projects", JSON.stringify([]));
   }, []);
-  console.log(projects);
+
   return (
     <>
       <ul>
