@@ -28,6 +28,7 @@ export default function App() {
     <div className="App">
       {" "}
       <Routes>
+        <Route path="/" element={<h3>home</h3>} />
         <Route path="/projects" element={<Projects />} />
         <Route path="/createproject" element={<CreateProject />} />
         <Route path="/login" element={<Login />} />
